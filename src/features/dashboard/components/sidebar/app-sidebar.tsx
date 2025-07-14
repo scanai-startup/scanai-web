@@ -73,7 +73,7 @@ const data = {
   projects: [
     {
       name: "Visão Geral",
-      url: "#",
+      url: "/dashboard",
       icon: PieChart,
     },
     {
@@ -83,7 +83,7 @@ const data = {
     },
     {
       name: "Rastreabilidade",
-      url: "#",
+      url: "/dashboard/traceability",
       icon: Wine,
     },
   ],

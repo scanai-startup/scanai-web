@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} overscroll-none bg-[#101010] font-sans antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} overscroll-none dark:bg-[#101010] font-sans antialiased`}
       >
         <NextThemesProvider
           attribute="class"

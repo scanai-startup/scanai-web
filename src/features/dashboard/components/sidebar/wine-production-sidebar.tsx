@@ -12,28 +12,8 @@ import {
   IconFilter,
 } from "@tabler/icons-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 
 interface NotaFiscal {
   id: string;
@@ -152,8 +132,13 @@ function getStatusIcon(status: NotaFiscal["status"]) {
 }
 
 function NotaFiscalCard({ nota }: { nota: NotaFiscal }) {
+  const router = useRouter();
+
   return (
-    <div className="p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+    <div
+      onClick={() => router.push(`/dashboard/traceability/${nota.id}`)}
+      className="p-4 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+    >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <IconFileText className="w-4 h-4 text-muted-foreground" />
@@ -196,7 +181,7 @@ export default function WineProductionCard() {
   }, [searchTerm]);
 
   return (
-    <div className="bg-muted/50 rounded-xl p-4 w-full max-w-xl mx-auto h-[600px] flex flex-col">
+    <div className="bg-white rounded-xl p-4 w-full h-full flex flex-col max-h-[450px]">
       {/* HEADER */}
       <div className="flex items-center gap-2 mb-4">
         <div className="relative flex-1">

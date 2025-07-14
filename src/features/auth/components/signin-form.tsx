@@ -4,7 +4,6 @@ import { ComponentProps } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 
-import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,26 +11,34 @@ import { z } from "zod";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Mail } from "lucide-react";
-import { loginForm } from "@/app/schemas/loginForm.schema";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { signinForm } from "@/schemas/signinForm.schema";
 
-export function LoginForm({
+export function SignInForm({
   className,
   redirectUrl = "/",
   ...props
 }: ComponentProps<"div"> & { redirectUrl?: string }) {
-  const form = useForm<z.infer<typeof loginForm>>({
-    resolver: zodResolver(loginForm),
+  const form = useForm<z.infer<typeof signinForm>>({
+    resolver: zodResolver(signinForm),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
+  const router = useRouter();
+
   const signInWithProvider = async (providerId: any) => {
     // if (env.NODE_ENV === "production") {
     //   toast.error("This feature is not available in production");
     //   return;
     // }
+
+    router.push("/dashboard");
+
     // await authClient.signIn.social(
     //   {
     //     provider: providerId,

@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/auth/login-form";
+import { SignInForm } from "@/features/auth";
 
 export default function Page() {
   return (
@@ -16,7 +16,7 @@ export default function Page() {
           <div className="text-5xl font-bold">
             SCAN.<span className="text-[#ED2860]">AI</span>
           </div>
-          <LoginForm className="min-w-sm" />
+          <SignInForm className="min-w-sm" />
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Barrel,
   BookOpen,
   Bot,
   Command,
@@ -29,6 +30,7 @@ import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { NavSecondary } from "./nav-secondary";
 import { NavUser } from "./nav-user";
+import { IconTank } from "@tabler/icons-react";
 
 const data = {
   user: {
@@ -80,6 +82,11 @@ const data = {
       name: "Gestão de remessas",
       url: "#",
       icon: Truck,
+    },
+     {
+      name: "Gestão de tanques",
+      url: "/dashboard/tanks",
+      icon: Barrel,
     },
     {
       name: "Rastreabilidade",

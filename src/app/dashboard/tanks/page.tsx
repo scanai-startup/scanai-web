@@ -11,6 +11,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, DollarSign, Users, Warehouse } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Tank,
+  tankColumns,
+} from "@/features/tank/components/Tables/Companies/columns";
+import { DataTable } from "@/features/tank/components/Tables/Companies/data-table";
 
 const data = [
   { name: "Syrah", value: 35, color: "#facc15" }, // amarelo
@@ -18,6 +23,33 @@ const data = [
   { name: "Merlot", value: 20, color: "#10b981" }, // verde
   { name: "Rosé", value: 15, color: "#a855f7" }, // roxo
   { name: "Outros", value: 5, color: "#6b7280" }, // cinza
+];
+
+export const TANKS: Tank[] = [
+  {
+    id: 1,
+    nome: "TQ-001",
+    volumeAtual: 2800,
+    capacidadeTotal: 3000,
+    status: "EM_USO",
+    tipo: "Inox",
+  },
+  {
+    id: 2,
+    nome: "TQ-002",
+    volumeAtual: 0,
+    capacidadeTotal: 2000,
+    status: "DISPONIVEL",
+    tipo: "Madeira",
+  },
+  {
+    id: 3,
+    nome: "TQ-003",
+    volumeAtual: 1000,
+    capacidadeTotal: 1500,
+    status: "MANUTENCAO",
+    tipo: "Inox",
+  },
 ];
 
 export default function Tanks() {
@@ -38,45 +70,17 @@ export default function Tanks() {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="overview">Visão Geral</TabsTrigger>
-          <TabsTrigger value="monitoring">Monitoramento</TabsTrigger>
-        </TabsList>
+        <div className="flex items-center justify-between">
+          <TabsList>
+            <TabsTrigger value="overview">Visão Geral</TabsTrigger>
+            <TabsTrigger value="monitoring">Monitoramento</TabsTrigger>
+          </TabsList>
+          <Button size="sm" className="ml-auto" variant="outline">
+            Adicionar novo tanque
+          </Button>
+        </div>
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {/* <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Produção mensal
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">R$ 87.340</div>
-                <p className="text-xs text-muted-foreground">Últimos 30 dias</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Alertas</CardTitle>
-                <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">5</div>
-                <p className="text-xs text-muted-foreground">últimos 7 dias</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Usuários</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">4</div>
-                <p className="text-xs text-muted-foreground">ativos este mês</p>
-              </CardContent>
-            </Card> */}
-
             <div>
               <Card className="h-60">
                 <CardHeader className="pb-2">
@@ -106,19 +110,9 @@ export default function Tanks() {
               <WineSummaryCard />
             </div>
           </div>
-        </TabsContent>
-        <TabsContent value="monitoring" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Monitoramento em tempo real</CardTitle>
-              <CardDescription>
-                Dados ao vivo dos sensores dos tanques.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Em breve...</p>
-            </CardContent>
-          </Card>
+          <div>
+            <DataTable columns={tankColumns} data={TANKS} />
+          </div>
         </TabsContent>
       </Tabs>
     </div>

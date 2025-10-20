@@ -2,52 +2,18 @@
 
 import * as React from 'react';
 import {
-	IconChevronDown,
-	IconChevronLeft,
-	IconChevronRight,
-	IconChevronsLeft,
-	IconChevronsRight,
-	IconCircleCheckFilled,
-	IconDotsVertical,
-	IconLayoutColumns,
-	IconLoader,
-	IconPlus,
-} from '@tabler/icons-react';
-import {
 	ColumnDef,
 	ColumnFiltersState,
 	flexRender,
 	getCoreRowModel,
-	getFacetedRowModel,
-	getFacetedUniqueValues,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
 	SortingState,
 	useReactTable,
-	VisibilityState,
 } from '@tanstack/react-table';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select';
 import {
 	Table,
 	TableBody,
@@ -58,36 +24,153 @@ import {
 } from '@/components/ui/table';
 
 import { Remessa } from '../types';
+import {
+	Drawer,
+	DrawerTrigger,
+	DrawerContent,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerClose,
+} from '@/components/ui/drawer';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useState } from 'react';
+
+function VerMaisButton({ remessa }: { remessa: Remessa }) {
+	const isMobile = useIsMobile();
+	const [open, setOpen] = useState(false);
+
+	return (
+		<Drawer
+			open={open}
+			onOpenChange={setOpen}
+			direction={isMobile ? 'bottom' : 'right'}
+		>
+			<DrawerTrigger asChild>
+				<Button variant='outline' size='sm'>
+					Ver mais
+				</Button>
+			</DrawerTrigger>
+			<DrawerContent>
+				<DrawerHeader>
+					<DrawerTitle>Detalhes da Remessa #{remessa.id}</DrawerTitle>
+					<DrawerDescription>
+						Informações completas da remessa
+					</DrawerDescription>
+				</DrawerHeader>
+				<div className='px-4 py-2 space-y-6'>
+					<div className='grid grid-cols-2 gap-4 text-sm'>
+						<div>
+							<span className='font-medium'>
+								Data de Chegada:
+							</span>{' '}
+							{new Date(remessa.datachegada).toLocaleDateString(
+								'pt-BR'
+							)}
+						</div>
+						<div>
+							<span className='font-medium'>
+								Número do Talão:
+							</span>{' '}
+							{remessa.numerotalao}
+						</div>
+						<div>
+							<span className='font-medium'>Casta:</span>{' '}
+							{remessa.casta}
+						</div>
+						<div>
+							<span className='font-medium'>Tipo de Vinho:</span>{' '}
+							{remessa.tipovinho}
+						</div>
+						<div>
+							<span className='font-medium'>
+								Quantidade de Caixas:
+							</span>{' '}
+							{remessa.qttcaixa}
+						</div>
+						<div>
+							<span className='font-medium'>Peso:</span>{' '}
+							{remessa.peso.toLocaleString()} kg
+						</div>
+						<div>
+							<span className='font-medium'>Sanidade:</span>{' '}
+							<span
+								className={
+									remessa.sanidade >= 90
+										? 'text-green-600'
+										: 'text-red-600'
+								}
+							>
+								{remessa.sanidade}%
+							</span>
+						</div>
+						<div>
+							<span className='font-medium'>Número do Lote:</span>{' '}
+							{remessa.numerolote}
+						</div>
+						<div>
+							<span className='font-medium'>SO2:</span>{' '}
+							{remessa.so2}
+						</div>
+						<div>
+							<span className='font-medium'>Status:</span>{' '}
+							<span
+								className={
+									remessa.valid
+										? 'text-green-600'
+										: 'text-gray-600'
+								}
+							>
+								{remessa.valid ? 'Ativa' : 'Inativa'}
+							</span>
+						</div>
+					</div>
+
+					<div className='space-y-2'>
+						<h4 className='font-medium'>Histórico de Qualidade</h4>
+						<div className='border rounded-lg p-3'>
+							<div className='flex justify-between items-center mb-2'>
+								<span className='text-sm'>Sanidade</span>
+								<span
+									className={`text-sm font-medium ${
+										remessa.sanidade >= 90
+											? 'text-green-600'
+											: 'text-red-600'
+									}`}
+								>
+									{remessa.sanidade}%
+								</span>
+							</div>
+							<div className='w-full bg-gray-200 rounded-full h-2'>
+								<div
+									className={`h-2 rounded-full ${
+										remessa.sanidade >= 90
+											? 'bg-green-500'
+											: 'bg-red-500'
+									}`}
+									style={{ width: `${remessa.sanidade}%` }}
+								></div>
+							</div>
+							<p className='text-xs text-gray-600 mt-1'>
+								{remessa.sanidade >= 90
+									? 'Aprovado para produção'
+									: 'Requer atenção'}
+							</p>
+						</div>
+					</div>
+				</div>
+				<DrawerFooter>
+					<DrawerClose asChild>
+						<Button variant='outline'>Fechar</Button>
+					</DrawerClose>
+				</DrawerFooter>
+			</DrawerContent>
+		</Drawer>
+	);
+}
 
 const columns: ColumnDef<Remessa>[] = [
-	{
-		id: 'select',
-		header: ({ table }) => (
-			<div className='flex items-center justify-center'>
-				<Checkbox
-					checked={
-						table.getIsAllPageRowsSelected() ||
-						(table.getIsSomePageRowsSelected() && 'indeterminate')
-					}
-					onCheckedChange={(value) =>
-						table.toggleAllPageRowsSelected(!!value)
-					}
-					aria-label='Select all'
-				/>
-			</div>
-		),
-		cell: ({ row }) => (
-			<div className='flex items-center justify-center'>
-				<Checkbox
-					checked={row.getIsSelected()}
-					onCheckedChange={(value) => row.toggleSelected(!!value)}
-					aria-label='Select row'
-				/>
-			</div>
-		),
-		enableSorting: false,
-		enableHiding: false,
-	},
 	{
 		accessorKey: 'id',
 		header: 'ID',
@@ -118,9 +201,7 @@ const columns: ColumnDef<Remessa>[] = [
 		accessorKey: 'tipovinho',
 		header: 'Tipo de Vinho',
 		cell: ({ row }) => (
-			<Badge variant='outline' className='text-muted-foreground px-1.5'>
-				{row.getValue('tipovinho')}
-			</Badge>
+			<div className='font-medium'>{row.getValue('tipovinho')}</div>
 		),
 	},
 	{
@@ -153,203 +234,58 @@ const columns: ColumnDef<Remessa>[] = [
 		header: 'Sanidade (%)',
 		cell: ({ row }) => {
 			const sanidade = row.getValue('sanidade') as number;
-			return (
-				<div className='text-right'>
-					<Badge
-						variant={sanidade >= 90 ? 'default' : 'destructive'}
-						className='text-xs'
-					>
-						{sanidade}%
-					</Badge>
-				</div>
-			);
+			return <div className='text-right font-medium'>{sanidade}%</div>;
 		},
 	},
 	{
 		accessorKey: 'valid',
 		header: 'Status',
-		cell: ({ row }) => (
-			<Badge
-				variant={row.getValue('valid') ? 'default' : 'secondary'}
-				className='text-xs'
-			>
-				{row.getValue('valid') ? (
-					<>
-						<IconCircleCheckFilled className='fill-green-500 dark:fill-green-400 mr-1' />
-						Ativa
-					</>
-				) : (
-					<>
-						<IconLoader className='mr-1' />
-						Inativa
-					</>
-				)}
-			</Badge>
-		),
+		cell: ({ row }) => {
+			const isValid = row.getValue('valid') as boolean;
+			return (
+				<div
+					className={`text-right font-medium ${
+						isValid ? 'text-green-600' : 'text-gray-600'
+					}`}
+				>
+					{isValid ? 'Ativa' : 'Inativa'}
+				</div>
+			);
+		},
 	},
 	{
-		id: 'actions',
-		cell: ({}) => (
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button
-						variant='ghost'
-						className='data-[state=open]:bg-muted text-muted-foreground flex size-8'
-						size='icon'
-					>
-						<IconDotsVertical />
-						<span className='sr-only'>Open menu</span>
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent align='end' className='w-32'>
-					<DropdownMenuItem>Visualizar</DropdownMenuItem>
-					<DropdownMenuItem>Editar</DropdownMenuItem>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem variant='destructive'>
-						Excluir
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
-		),
+		id: 'verMais',
+		header: '',
+		cell: ({ row }) => {
+			const remessa = row.original;
+			return <VerMaisButton remessa={remessa} />;
+		},
 	},
 ];
 
 export function RemessaTable({ data }: { data: Remessa[] }) {
-	const [rowSelection, setRowSelection] = React.useState({});
-	const [columnVisibility, setColumnVisibility] =
-		React.useState<VisibilityState>({});
+	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>([]);
-	const [sorting, setSorting] = React.useState<SortingState>([]);
-	const [pagination, setPagination] = React.useState({
-		pageIndex: 0,
-		pageSize: 10,
-	});
 
 	const table = useReactTable({
 		data,
 		columns,
-		state: {
-			sorting,
-			columnVisibility,
-			rowSelection,
-			columnFilters,
-			pagination,
-		},
-		getRowId: (row) => row.id.toString(),
-		enableRowSelection: true,
-		onRowSelectionChange: setRowSelection,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
-		onColumnVisibilityChange: setColumnVisibility,
-		onPaginationChange: setPagination,
-		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		getFacetedRowModel: getFacetedRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
+		state: {
+			sorting,
+			columnFilters,
+		},
 	});
 
 	return (
-		<div className='w-full'>
-			<div className='flex items-center justify-between px-4 lg:px-6 py-4'>
-				<div className='flex items-center gap-2'>
-					<Input
-						placeholder='Buscar por ID ou lote...'
-						value={
-							(table
-								.getColumn('id')
-								?.getFilterValue() as string) ?? ''
-						}
-						onChange={(event) =>
-							table
-								.getColumn('id')
-								?.setFilterValue(event.target.value)
-						}
-						className='max-w-sm'
-					/>
-					<Select
-						value={
-							(table
-								.getColumn('tipovinho')
-								?.getFilterValue() as string) ?? 'todos'
-						}
-						onValueChange={(value) =>
-							table.getColumn('tipovinho')?.setFilterValue(value)
-						}
-					>
-						<SelectTrigger className='w-40'>
-							<SelectValue placeholder='Tipo de vinho' />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value='todos'>Todos</SelectItem>
-							<SelectItem value='Tinto'>Tinto</SelectItem>
-							<SelectItem value='Branco'>Branco</SelectItem>
-							<SelectItem value='Rosé'>Rosé</SelectItem>
-						</SelectContent>
-					</Select>
-					<Select
-						value={
-							(table
-								.getColumn('valid')
-								?.getFilterValue() as string) ?? 'all'
-						}
-						onValueChange={(value) =>
-							table.getColumn('valid')?.setFilterValue(value)
-						}
-					>
-						<SelectTrigger className='w-32'>
-							<SelectValue placeholder='Status' />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value='all'>Todos</SelectItem>
-							<SelectItem value='true'>Ativas</SelectItem>
-							<SelectItem value='false'>Inativas</SelectItem>
-						</SelectContent>
-					</Select>
-				</div>
-				<div className='flex items-center gap-2'>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant='outline' size='sm'>
-								<IconLayoutColumns />
-								<span className='hidden lg:inline'>
-									Colunas
-								</span>
-								<IconChevronDown />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align='end' className='w-56'>
-							{table
-								.getAllColumns()
-								.filter(
-									(column) =>
-										typeof column.accessorFn !==
-											'undefined' && column.getCanHide()
-								)
-								.map((column) => {
-									return (
-										<DropdownMenuCheckboxItem
-											key={column.id}
-											className='capitalize'
-											checked={column.getIsVisible()}
-											onCheckedChange={(value) =>
-												column.toggleVisibility(!!value)
-											}
-										>
-											{column.id}
-										</DropdownMenuCheckboxItem>
-									);
-								})}
-						</DropdownMenuContent>
-					</DropdownMenu>
-					<Button variant='outline' size='sm'>
-						<IconPlus />
-						<span className='hidden lg:inline'>Nova Remessa</span>
-					</Button>
-				</div>
-			</div>
+		<div>
+			<div className='flex items-center py-3 rounded-xs justify-between'></div>
 
 			<div className='overflow-hidden rounded-lg border'>
 				<Table>
@@ -408,97 +344,23 @@ export function RemessaTable({ data }: { data: Remessa[] }) {
 				</Table>
 			</div>
 
-			<div className='flex items-center justify-between px-4 py-4'>
-				<div className='text-muted-foreground hidden flex-1 text-sm lg:flex'>
-					{table.getFilteredSelectedRowModel().rows.length} de{' '}
-					{table.getFilteredRowModel().rows.length} linha(s)
-					selecionada(s).
-				</div>
-				<div className='flex w-full items-center gap-8 lg:w-fit'>
-					<div className='hidden items-center gap-2 lg:flex'>
-						<Label
-							htmlFor='rows-per-page'
-							className='text-sm font-medium'
-						>
-							Linhas por página
-						</Label>
-						<Select
-							value={`${table.getState().pagination.pageSize}`}
-							onValueChange={(value) => {
-								table.setPageSize(Number(value));
-							}}
-						>
-							<SelectTrigger
-								size='sm'
-								className='w-20'
-								id='rows-per-page'
-							>
-								<SelectValue
-									placeholder={
-										table.getState().pagination.pageSize
-									}
-								/>
-							</SelectTrigger>
-							<SelectContent side='top'>
-								{[10, 20, 30, 40, 50].map((pageSize) => (
-									<SelectItem
-										key={pageSize}
-										value={`${pageSize}`}
-									>
-										{pageSize}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-					</div>
-					<div className='flex w-fit items-center justify-center text-sm font-medium'>
-						Página {table.getState().pagination.pageIndex + 1} de{' '}
-						{table.getPageCount()}
-					</div>
-					<div className='ml-auto flex items-center gap-2 lg:ml-0'>
-						<Button
-							variant='outline'
-							className='hidden h-8 w-8 p-0 lg:flex'
-							onClick={() => table.setPageIndex(0)}
-							disabled={!table.getCanPreviousPage()}
-						>
-							<span className='sr-only'>Primeira página</span>
-							<IconChevronsLeft />
-						</Button>
-						<Button
-							variant='outline'
-							className='size-8'
-							size='icon'
-							onClick={() => table.previousPage()}
-							disabled={!table.getCanPreviousPage()}
-						>
-							<span className='sr-only'>Página anterior</span>
-							<IconChevronLeft />
-						</Button>
-						<Button
-							variant='outline'
-							className='size-8'
-							size='icon'
-							onClick={() => table.nextPage()}
-							disabled={!table.getCanNextPage()}
-						>
-							<span className='sr-only'>Próxima página</span>
-							<IconChevronRight />
-						</Button>
-						<Button
-							variant='outline'
-							className='hidden size-8 lg:flex'
-							size='icon'
-							onClick={() =>
-								table.setPageIndex(table.getPageCount() - 1)
-							}
-							disabled={!table.getCanNextPage()}
-						>
-							<span className='sr-only'>Última página</span>
-							<IconChevronsRight />
-						</Button>
-					</div>
-				</div>
+			<div className='flex items-center justify-end space-x-2 py-4'>
+				<Button
+					variant='outline'
+					size='sm'
+					onClick={() => table.previousPage()}
+					disabled={!table.getCanPreviousPage()}
+				>
+					Previous
+				</Button>
+				<Button
+					variant='outline'
+					size='sm'
+					onClick={() => table.nextPage()}
+					disabled={!table.getCanNextPage()}
+				>
+					Next
+				</Button>
 			</div>
 		</div>
 	);

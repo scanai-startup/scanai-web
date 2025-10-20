@@ -101,4 +101,87 @@ export class RemessaService {
 			throw error;
 		}
 	}
+
+	static async createRemessa(remessa: Omit<Remessa, 'id'>): Promise<Remessa> {
+		try {
+			const response = await fetch(`${API_BASE_URL}/uva/create`, {
+				method: 'POST',
+				headers: getAuthHeaders(),
+				body: JSON.stringify({
+					...remessa,
+					valid: true, // Nova remessa sempre começa como ativa
+				}),
+			});
+
+			if (!response.ok) {
+				if (response.status === 401) {
+					AuthService.removeToken();
+					throw new Error('Sessão expirada. Faça login novamente.');
+				}
+				if (response.status === 403) {
+					throw new Error('Acesso negado - permissões insuficientes');
+				}
+				throw new Error(`Erro HTTP: ${response.status}`);
+			}
+
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error('Erro ao criar remessa:', error);
+			throw error;
+		}
+	}
+
+	static async updateRemessa(
+		id: number,
+		remessa: Partial<Remessa>
+	): Promise<Remessa> {
+		try {
+			const response = await fetch(`${API_BASE_URL}/uva/update/${id}`, {
+				method: 'PUT',
+				headers: getAuthHeaders(),
+				body: JSON.stringify(remessa),
+			});
+
+			if (!response.ok) {
+				if (response.status === 401) {
+					AuthService.removeToken();
+					throw new Error('Sessão expirada. Faça login novamente.');
+				}
+				if (response.status === 403) {
+					throw new Error('Acesso negado - permissões insuficientes');
+				}
+				throw new Error(`Erro HTTP: ${response.status}`);
+			}
+
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error(`Erro ao atualizar remessa ${id}:`, error);
+			throw error;
+		}
+	}
+
+	static async deleteRemessa(id: number): Promise<void> {
+		try {
+			const response = await fetch(`${API_BASE_URL}/uva/delete/${id}`, {
+				method: 'DELETE',
+				headers: getAuthHeaders(),
+			});
+
+			if (!response.ok) {
+				if (response.status === 401) {
+					AuthService.removeToken();
+					throw new Error('Sessão expirada. Faça login novamente.');
+				}
+				if (response.status === 403) {
+					throw new Error('Acesso negado - permissões insuficientes');
+				}
+				throw new Error(`Erro HTTP: ${response.status}`);
+			}
+		} catch (error) {
+			console.error(`Erro ao excluir remessa ${id}:`, error);
+			throw error;
+		}
+	}
 }

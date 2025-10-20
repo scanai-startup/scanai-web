@@ -2,15 +2,10 @@
 
 import * as React from 'react';
 import {
-	BookOpen,
-	Bot,
 	Command,
-	Frame,
 	LifeBuoy,
-	Map,
 	PieChart,
 	Send,
-	Settings2,
 	SquareTerminal,
 	Truck,
 	Wine,
@@ -25,10 +20,10 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { NavMain } from './nav-main';
 import { NavProjects } from './nav-projects';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
+import { LogoutButton } from '@/features/auth';
 
 const data = {
 	user: {
@@ -78,7 +73,7 @@ const data = {
 		},
 		{
 			name: 'Gestão de remessas',
-			url: '#',
+			url: '/dashboard/remessas',
 			icon: Truck,
 		},
 		{
@@ -120,6 +115,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser user={data.user} />
+				<div className='px-2 py-1'>
+					<LogoutButton />
+				</div>
 			</SidebarFooter>
 		</Sidebar>
 	);

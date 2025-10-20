@@ -1,54 +1,54 @@
 [
-  {
-    "id": "1",
-    "numero": "12347",
-    "tipo": "Produção",
-    "vinho": "Syrah",
-    "safra": "2025",
-    "quantidade": 5000,
-    "status": "Em Produção",
-    "dataInicio": "14/02/2025",
-    "dataPrevisao": "14/08/2025",
-    "responsavel": "João Silva",
-    "observacoes": "Safra de alta qualidade, uvas selecionadas da região sul."
-  },
-  {
-    "id": "2",
-    "numero": "12348",
-    "tipo": "Produção",
-    "vinho": "Cabernet Sauvignon",
-    "safra": "2025",
-    "quantidade": 3500,
-    "status": "Fermentação",
-    "dataInicio": "10/02/2025",
-    "dataPrevisao": "10/09/2025",
-    "responsavel": "Maria Santos",
-    "observacoes": "Processo de fermentação controlada a 25°C."
-  },
-  {
-    "id": "3",
-    "numero": "12349",
-    "tipo": "Produção",
-    "vinho": "Alicante Bouschet",
-    "safra": "2024",
-    "quantidade": 2800,
-    "status": "Envelhecimento",
-    "dataInicio": "15/08/2024",
-    "dataPrevisao": "15/02/2025",
-    "responsavel": "Pedro Costa",
-    "observacoes": "Envelhecimento em barris de carvalho francês."
-  },
-  {
-    "id": "4",
-    "numero": "12350",
-    "tipo": "Produção",
-    "vinho": "Touriga Nacional",
-    "safra": "2024",
-    "quantidade": 4200,
-    "status": "Finalizado",
-    "dataInicio": "20/07/2024",
-    "dataPrevisao": "20/01/2025",
-    "responsavel": "Ana Oliveira",
-    "observacoes": "Lote finalizado com excelente qualidade."
-  }
+	{
+		"id": "1",
+		"numero": "12347",
+		"tipo": "Produção",
+		"vinho": "Syrah",
+		"safra": "2025",
+		"quantidade": 5000,
+		"status": "Em Produção",
+		"dataInicio": "14/02/2025",
+		"dataPrevisao": "14/08/2025",
+		"responsavel": "João Silva",
+		"observacoes": "Safra de alta qualidade, uvas selecionadas da região sul."
+	},
+	{
+		"id": "2",
+		"numero": "12348",
+		"tipo": "Produção",
+		"vinho": "Cabernet Sauvignon",
+		"safra": "2025",
+		"quantidade": 3500,
+		"status": "Fermentação",
+		"dataInicio": "10/02/2025",
+		"dataPrevisao": "10/09/2025",
+		"responsavel": "Maria Santos",
+		"observacoes": "Processo de fermentação controlada a 25°C."
+	},
+	{
+		"id": "3",
+		"numero": "12349",
+		"tipo": "Produção",
+		"vinho": "Alicante Bouschet",
+		"safra": "2024",
+		"quantidade": 2800,
+		"status": "Envelhecimento",
+		"dataInicio": "15/08/2024",
+		"dataPrevisao": "15/02/2025",
+		"responsavel": "Pedro Costa",
+		"observacoes": "Envelhecimento em barris de carvalho francês."
+	},
+	{
+		"id": "4",
+		"numero": "12350",
+		"tipo": "Produção",
+		"vinho": "Touriga Nacional",
+		"safra": "2024",
+		"quantidade": 4200,
+		"status": "Finalizado",
+		"dataInicio": "20/07/2024",
+		"dataPrevisao": "20/01/2025",
+		"responsavel": "Ana Oliveira",
+		"observacoes": "Lote finalizado com excelente qualidade."
+	}
 ]

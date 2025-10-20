@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import {
+	Barrel,
 	Command,
 	LifeBuoy,
 	PieChart,
@@ -75,6 +76,11 @@ const data = {
 			name: 'Gestão de remessas',
 			url: '/dashboard/remessas',
 			icon: Truck,
+		},
+		{
+			name: 'Gestão de tanques',
+			url: '/dashboard/tanks',
+			icon: Barrel,
 		},
 		{
 			name: 'Rastreabilidade',

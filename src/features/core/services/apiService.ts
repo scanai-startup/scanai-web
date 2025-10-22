@@ -1,5 +1,6 @@
 'use server';
 
+import { decrypt } from '@/lib/auth';
 import { cookies } from 'next/headers';
 
 const API_URL = process.env.API_URL;
@@ -13,16 +14,19 @@ export async function apiService<T>(
 	options: Options = {}
 ): Promise<T> {
 	const cookieStore = await cookies();
+	const token = cookieStore.get('token')?.value;
 	const url = `${API_URL}${endpoint}`;
 
 	const defaultHeaders: Record<string, string> = {
 		'Content-Type': 'application/json',
 	};
 
-	if (cookieStore.get('token')?.value) {
-		defaultHeaders['Authorization'] = `Bearer ${
-			cookieStore.get('token')?.value
-		}`;
+	if (token) {
+		const payload = await decrypt(token);
+
+		if (payload) {
+			defaultHeaders['Authorization'] = `Bearer ${payload.jwt}`;
+		}
 	}
 
 	const customHeaders = {

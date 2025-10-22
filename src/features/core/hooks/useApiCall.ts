@@ -4,14 +4,13 @@ export default function useApiCall<TPayload, TResponse>(
 	fn: (payload: TPayload) => Promise<TResponse>
 ) {
 	const [isLoading, setIsLoading] = useState(false);
-	const [data, setData] = useState<TResponse>();
 
 	async function action(payload: TPayload) {
 		try {
 			setIsLoading(true);
-			const res = await fn(payload);
+			const data = await fn(payload);
 
-			setData(res);
+			return data;
 		} catch (error) {
 			throw error;
 		} finally {
@@ -19,5 +18,5 @@ export default function useApiCall<TPayload, TResponse>(
 		}
 	}
 
-	return { action, isLoading, data };
+	return { action, isLoading };
 }

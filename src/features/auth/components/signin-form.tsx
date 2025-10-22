@@ -15,12 +15,15 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import useApiCall from '@/features/core/hooks/useApiCall';
 import { LoaderCircle } from 'lucide-react';
+import { useUserStore } from '@/features/core/store/user';
+import { Role } from '@/features/core/constants/roles';
 
 export function SignInForm({
 	className,
 	...props
 }: ComponentProps<'div'> & { redirectUrl?: string }) {
 	const { action, isLoading } = useApiCall(signIn);
+	const { setUser } = useUserStore();
 	const form = useForm<SigninFormType>({
 		resolver: zodResolver(signinForm),
 		defaultValues: {
@@ -32,9 +35,10 @@ export function SignInForm({
 
 	async function handleSignin(values: SigninFormType) {
 		try {
-			await action(values);
+			const data = await action(values);
+			setUser({ name: data.name as string, role: data.role as Role });
 
-			router.push('/dashboard');
+			router.push('/app/dashboard');
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
 			toast.error(

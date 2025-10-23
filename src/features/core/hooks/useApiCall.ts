@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 export default function useApiCall<TPayload, TResponse>(
-	fn: (payload: TPayload) => Promise<TResponse>
+	fn: (payload?: TPayload) => Promise<TResponse>
 ) {
 	const [isLoading, setIsLoading] = useState(false);
 
-	async function action(payload: TPayload) {
+	async function action(payload?: TPayload) {
 		try {
 			setIsLoading(true);
 			const data = await fn(payload);

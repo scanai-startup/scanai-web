@@ -25,7 +25,7 @@ export async function apiService<T>(
 		const payload = await decrypt(token);
 
 		if (payload) {
-			defaultHeaders['Authorization'] = `Bearer ${payload.jwt}`;
+			defaultHeaders['Authorization'] = `Bearer ${payload.token}`;
 		}
 	}
 

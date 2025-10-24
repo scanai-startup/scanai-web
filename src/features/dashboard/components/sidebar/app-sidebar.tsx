@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import {
+	Barrel,
 	Command,
 	LifeBuoy,
 	PieChart,
@@ -23,6 +24,7 @@ import {
 import { NavProjects } from './nav-projects';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
+import { LogoutButton } from '@/features/auth';
 
 const data = {
 	navMain: [
@@ -67,8 +69,13 @@ const data = {
 		},
 		{
 			name: 'Gestão de remessas',
-			url: '#',
+			url: '/dashboard/remessas',
 			icon: Truck,
+		},
+		{
+			name: 'Gestão de tanques',
+			url: '/dashboard/tanks',
+			icon: Barrel,
 		},
 		{
 			name: 'Rastreabilidade',
@@ -109,6 +116,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />
+				<div className='px-2 py-1'>
+					<LogoutButton />
+				</div>
 			</SidebarFooter>
 		</Sidebar>
 	);

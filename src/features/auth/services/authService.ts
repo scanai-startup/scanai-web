@@ -4,6 +4,9 @@ import { apiService } from '@/features/core/services/apiService';
 import { SigninFormType } from '../schemas/signinForm.schema';
 import { cookies } from 'next/headers';
 import SigninResponse from '../types/signinResponse';
+import { jwtDecode } from 'jwt-decode';
+import { encrypt } from '@/lib/auth';
+import { DecodedToken } from '@/features/core/types/decodedJwt';
 
 export const signIn = async (payload: SigninFormType) => {
 	try {
@@ -14,12 +17,24 @@ export const signIn = async (payload: SigninFormType) => {
 
 		const cookieStore = await cookies();
 
-		cookieStore.set('token', data.token, {
+		const decoded = jwtDecode(data.token) as DecodedToken;
+		const expiresInMs = (decoded.exp as number) * 1000;
+		const token = await encrypt(
+			{ ...decoded, token: data.token },
+			expiresInMs
+		);
+
+		cookieStore.set('token', token, {
 			path: '/',
-			// maxAge: 60 * 60,
+			expires: new Date(expiresInMs),
 			secure: false,
 			httpOnly: true,
 		});
+
+		return {
+			name: decoded.sub,
+			role: decoded.role,
+		};
 	} catch (error) {
 		console.error('Erro ao realizar login: ', error);
 		throw error;

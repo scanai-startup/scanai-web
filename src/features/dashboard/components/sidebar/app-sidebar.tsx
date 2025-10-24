@@ -2,15 +2,10 @@
 
 import * as React from 'react';
 import {
-	BookOpen,
-	Bot,
 	Command,
-	Frame,
 	LifeBuoy,
-	Map,
 	PieChart,
 	Send,
-	Settings2,
 	SquareTerminal,
 	Truck,
 	Wine,
@@ -25,17 +20,11 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { NavMain } from './nav-main';
 import { NavProjects } from './nav-projects';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 
 const data = {
-	user: {
-		name: 'Cauã Tavares',
-		email: 'tavarescauac@gmail.com',
-		avatar: '/avatars/shadcn.jpg',
-	},
 	navMain: [
 		{
 			title: 'Playground',
@@ -73,7 +62,7 @@ const data = {
 	projects: [
 		{
 			name: 'Visão Geral',
-			url: '/dashboard',
+			url: '/app/dashboard',
 			icon: PieChart,
 		},
 		{
@@ -83,7 +72,7 @@ const data = {
 		},
 		{
 			name: 'Rastreabilidade',
-			url: '/dashboard/traceability',
+			url: '/app/dashboard/traceability',
 			icon: Wine,
 		},
 	],
@@ -119,7 +108,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<NavSecondary items={data.navSecondary} className='mt-auto' />
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={data.user} />
+				<NavUser />
 			</SidebarFooter>
 		</Sidebar>
 	);

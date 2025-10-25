@@ -1,15 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-	Command,
-	LifeBuoy,
-	PieChart,
-	Send,
-	SquareTerminal,
-	Truck,
-	Wine,
-} from 'lucide-react';
+import { Command } from 'lucide-react';
 
 import {
 	Sidebar,
@@ -20,63 +12,9 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { NavProjects } from './nav-projects';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
-
-const data = {
-	navMain: [
-		{
-			title: 'Playground',
-			url: '#',
-			icon: SquareTerminal,
-			isActive: true,
-			items: [
-				{
-					title: 'History',
-					url: '#',
-				},
-				{
-					title: 'Starred',
-					url: '#',
-				},
-				{
-					title: 'Settings',
-					url: '#',
-				},
-			],
-		},
-	],
-	navSecondary: [
-		{
-			title: 'Support',
-			url: '#',
-			icon: LifeBuoy,
-		},
-		{
-			title: 'Feedback',
-			url: '#',
-			icon: Send,
-		},
-	],
-	projects: [
-		{
-			name: 'Visão Geral',
-			url: '/app/dashboard',
-			icon: PieChart,
-		},
-		{
-			name: 'Gestão de remessas',
-			url: '#',
-			icon: Truck,
-		},
-		{
-			name: 'Rastreabilidade',
-			url: '/app/dashboard/traceability',
-			icon: Wine,
-		},
-	],
-};
+import { NavMainRoutes } from './nav-main-routes';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
@@ -104,8 +42,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent>
 				{/* <NavMain items={data.navMain} /> */}
-				<NavProjects projects={data.projects} />
-				<NavSecondary items={data.navSecondary} className='mt-auto' />
+				<NavMainRoutes />
+				<NavSecondary className='mt-auto' />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />

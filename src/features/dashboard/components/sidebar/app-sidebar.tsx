@@ -69,12 +69,12 @@ const data = {
 		},
 		{
 			name: 'Gestão de remessas',
-			url: '/dashboard/remessas',
+			url: '/app/dashboard/remessas',
 			icon: Truck,
 		},
 		{
 			name: 'Gestão de tanques',
-			url: '/dashboard/tanks',
+			url: '/app/dashboard/tanks',
 			icon: Barrel,
 		},
 		{

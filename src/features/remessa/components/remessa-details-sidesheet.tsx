@@ -35,14 +35,14 @@ import { Remessa } from '@/features/remessa/types';
 
 interface RemessaDetailsForm {
 	datachegada: string;
-	numerotalao: string;
+	numerotalao: number;
 	casta: string;
 	tipovinho: string;
 	qttcaixa: number;
 	peso: number;
 	sanidade: number;
-	so2: number;
-	numerolote: string;
+	so2: string;
+	numerolote: number;
 	observacoes: string;
 }
 
@@ -62,14 +62,14 @@ export function RemessaDetailsSidesheet({
 	const [formData, setFormData] = useState<RemessaDetailsForm>({
 		datachegada:
 			remessa?.datachegada || new Date().toISOString().split('T')[0],
-		numerotalao: remessa?.numerotalao || '',
+		numerotalao: remessa?.numerotalao || 0,
 		casta: remessa?.casta || '',
 		tipovinho: remessa?.tipovinho || '',
 		qttcaixa: remessa?.qttcaixa || 0,
 		peso: remessa?.peso || 0,
-		sanidade: 0,
-		so2: 0,
-		numerolote: '',
+		sanidade: remessa?.sanidade || 0,
+		so2: remessa?.so2 || '',
+		numerolote: remessa?.numerolote || 0,
 		observacoes: '',
 	});
 
@@ -100,6 +100,8 @@ export function RemessaDetailsSidesheet({
 					so2: formData.so2,
 					numerolote: formData.numerolote,
 					valid: true,
+					fkfuncionario: 1,
+					fkmostro: null,
 				});
 				toast.success('Remessa criada com sucesso!');
 			} else if (remessa) {
@@ -135,13 +137,8 @@ export function RemessaDetailsSidesheet({
 				<span>Nova remessa</span>
 			</Button>
 		) : (
-			<Button
-				size='sm'
-				variant='outline'
-				className='flex items-center space-x-2'
-			>
+			<Button size='icon' variant='ghost' className='h-8 w-8'>
 				<Edit className='h-4 w-4' />
-				<span>Editar</span>
 			</Button>
 		);
 
@@ -169,8 +166,7 @@ export function RemessaDetailsSidesheet({
 					onSubmit={handleSubmit}
 					className='flex-1 overflow-y-auto'
 				>
-					<div className='space-y-6 py-6'>
-						{/* Informações Básicas */}
+					<div className='space-y-6 py-6 px-6'>
 						<Card>
 							<CardHeader>
 								<CardTitle className='text-lg'>
@@ -205,14 +201,15 @@ export function RemessaDetailsSidesheet({
 									</Label>
 									<Input
 										id='numerotalao'
+										type='number'
 										value={formData.numerotalao}
 										onChange={(e) =>
 											handleInputChange(
 												'numerotalao',
-												e.target.value
+												parseInt(e.target.value) || 0
 											)
 										}
-										placeholder='Ex: TAL-2024-001'
+										placeholder='Ex: 2024001'
 										required
 									/>
 								</div>
@@ -223,14 +220,15 @@ export function RemessaDetailsSidesheet({
 									</Label>
 									<Input
 										id='numerolote'
+										type='number'
 										value={formData.numerolote}
 										onChange={(e) =>
 											handleInputChange(
 												'numerolote',
-												e.target.value
+												parseInt(e.target.value) || 0
 											)
 										}
-										placeholder='Ex: LOTE-2024-001'
+										placeholder='Ex: 2024001'
 										required
 									/>
 								</div>
@@ -256,7 +254,7 @@ export function RemessaDetailsSidesheet({
 											handleInputChange('casta', value)
 										}
 									>
-										<SelectTrigger>
+										<SelectTrigger className='w-full'>
 											<SelectValue placeholder='Selecione a casta' />
 										</SelectTrigger>
 										<SelectContent>
@@ -301,7 +299,7 @@ export function RemessaDetailsSidesheet({
 											)
 										}
 									>
-										<SelectTrigger>
+										<SelectTrigger className='w-full'>
 											<SelectValue placeholder='Selecione o tipo' />
 										</SelectTrigger>
 										<SelectContent>
@@ -414,14 +412,11 @@ export function RemessaDetailsSidesheet({
 									<Label htmlFor='so2'>SO2 (mg/L)</Label>
 									<Input
 										id='so2'
-										type='number'
-										min='0'
-										step='0.1'
 										value={formData.so2}
 										onChange={(e) =>
 											handleInputChange(
 												'so2',
-												parseFloat(e.target.value) || 0
+												e.target.value
 											)
 										}
 										placeholder='Ex: 25.0'

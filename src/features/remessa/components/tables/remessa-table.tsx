@@ -74,14 +74,31 @@ export function RemessaTable({ data }: { data: Remessa[] }) {
 										row.getIsSelected() && 'selected'
 									}
 								>
-									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</TableCell>
-									))}
+									{row.getVisibleCells().map((cell) => {
+										const isActionsColumn =
+											cell.column.id === 'actions';
+										const isNumericColumn = [
+											'qttcaixa',
+											'peso',
+											'sanidade',
+										].includes(cell.column.id || '');
+										return (
+											<TableCell
+												key={cell.id}
+												className={
+													isActionsColumn ||
+													isNumericColumn
+														? 'text-right'
+														: ''
+												}
+											>
+												{flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)}
+											</TableCell>
+										);
+									})}
 								</TableRow>
 							))
 						) : (

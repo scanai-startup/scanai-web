@@ -14,6 +14,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useState } from 'react';
 import { Remessa } from '../../types';
 import { RemessaDetailsSidesheet } from '../remessa-details-sidesheet';
+import { Eye } from 'lucide-react';
 
 function VerMaisButton({ remessa }: { remessa: Remessa }) {
 	const isMobile = useIsMobile();
@@ -26,8 +27,8 @@ function VerMaisButton({ remessa }: { remessa: Remessa }) {
 			direction={isMobile ? 'bottom' : 'right'}
 		>
 			<DrawerTrigger asChild>
-				<Button variant='outline' size='sm'>
-					Ver mais
+				<Button variant='ghost' size='icon' className='h-8 w-8'>
+					<Eye className='h-4 w-4' />
 				</Button>
 			</DrawerTrigger>
 			<DrawerContent>
@@ -237,7 +238,7 @@ export const remessaColumns: ColumnDef<Remessa>[] = [
 		cell: ({ row }) => {
 			const remessa = row.original;
 			return (
-				<div className='flex items-center space-x-2'>
+				<div className='flex items-center justify-end space-x-2'>
 					<VerMaisButton remessa={remessa} />
 					<RemessaDetailsSidesheet
 						remessa={remessa}

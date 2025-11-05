@@ -5,8 +5,6 @@ import {
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
-	getSortedRowModel,
-	SortingState,
 	useReactTable,
 } from '@tanstack/react-table';
 
@@ -24,7 +22,6 @@ import { Remessa } from '../../types';
 import { remessaColumns } from './remessa-columns';
 
 export function RemessaTable({ data }: { data: Remessa[] }) {
-	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>([]);
 
@@ -33,12 +30,9 @@ export function RemessaTable({ data }: { data: Remessa[] }) {
 		columns: remessaColumns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
 		getFilteredRowModel: getFilteredRowModel(),
-		getSortedRowModel: getSortedRowModel(),
 		state: {
-			sorting,
 			columnFilters,
 		},
 	});

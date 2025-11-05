@@ -3,16 +3,20 @@
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { AuthService } from '../../auth/services/auth-service';
+import { signOut } from '../../auth/services/auth-service';
 import { toast } from 'sonner';
 
 export function LogoutButton() {
 	const router = useRouter();
 
-	const handleLogout = () => {
-		AuthService.removeToken();
-		toast.success('Logout realizado com sucesso!');
-		router.push('/signin');
+	const handleLogout = async () => {
+		try {
+			await signOut();
+			toast.success('Logout realizado com sucesso!');
+			router.push('/signin');
+		} catch (error) {
+			toast.error('Erro ao realizar logout');
+		}
 	};
 
 	return (

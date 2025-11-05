@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { signinForm } from '../schemas/signinForm.schema';
 import { SigninFormType } from '../schemas/signinForm.schema';
-import { signIn } from '../services/authService';
+import { signIn } from '../services/auth-service';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import useApiCall from '@/features/core/hooks/useApiCall';

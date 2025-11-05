@@ -12,7 +12,7 @@ import {
 } from '@/features/remessa';
 
 export default function RemessasPage() {
-	const { remessas, stats, loading, error, refreshRemessas } = useRemessas();
+	const { remessas, stats, loading, refreshRemessas } = useRemessas();
 
 	if (loading) {
 		return (
@@ -22,22 +22,6 @@ export default function RemessasPage() {
 					<p className='text-muted-foreground'>
 						Carregando remessas...
 					</p>
-				</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return (
-			<div className='flex items-center justify-center h-64'>
-				<div className='text-center'>
-					<p className='text-destructive mb-4'>{error}</p>
-					<button
-						onClick={() => window.location.reload()}
-						className='px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90'
-					>
-						Tentar novamente
-					</button>
 				</div>
 			</div>
 		);

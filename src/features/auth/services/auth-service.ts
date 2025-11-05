@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import { encrypt } from '@/lib/auth';
 import { DecodedToken } from '@/features/core/types/decodedJwt';
 
-export const signIn = async (payload: SigninFormType) => {
+export async function signIn(payload: SigninFormType) {
 	try {
 		const data = await apiService<SigninResponse>('/auth/login', {
 			method: 'POST',
@@ -39,4 +39,9 @@ export const signIn = async (payload: SigninFormType) => {
 		console.error('Erro ao realizar login: ', error);
 		throw error;
 	}
-};
+}
+
+export async function signOut() {
+	const cookieStore = await cookies();
+	cookieStore.delete('token');
+}

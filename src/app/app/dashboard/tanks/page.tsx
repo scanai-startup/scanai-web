@@ -1,6 +1,5 @@
 'use client';
 
-import DynamicBreadcrumb from '@/features/core/components/dynamic-breadcrumb';
 import PageHeader from '@/features/core/components/page-header';
 import useApiCall from '@/features/core/hooks/useApiCall';
 import { TanksTable } from '@/features/tanks/components/tanks-table';

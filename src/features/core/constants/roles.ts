@@ -2,6 +2,9 @@ const roles = {
 	ADMIN: {
 		fancy: 'Administrador',
 	},
+	FUNCIONARIO: {
+		fancy: 'Funcionário',
+	},
 };
 
 export type Role = keyof typeof roles;

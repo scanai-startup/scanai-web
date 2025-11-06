@@ -15,6 +15,7 @@ import {
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 import { NavMainRoutes } from './nav-main-routes';
+import { LogoutButton } from '@/features/auth';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
@@ -47,6 +48,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />
+				<div className='px-2 py-1'>
+					<LogoutButton />
+				</div>
 			</SidebarFooter>
 		</Sidebar>
 	);

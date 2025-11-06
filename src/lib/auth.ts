@@ -14,8 +14,12 @@ export async function encrypt(payload: any, expiresInMs: number) {
 		.sign(secretKey);
 }
 
-export async function decrypt(token: string) {
+export async function decrypt(token: any) {
 	try {
+		if (!token || typeof token !== 'string') {
+			return false;
+		}
+
 		const { payload } = await jwtVerify(token, secretKey, {
 			algorithms: ['HS256'],
 		});

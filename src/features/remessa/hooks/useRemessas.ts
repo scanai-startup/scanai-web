@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Remessa, RemessaStats } from '../types';
-import { RemessaService } from '../services/remessa-service';
+import { getAllRemessas } from '../services/remessa-service';
 import useApiCall from '@/features/core/hooks/useApiCall';
 
 const calculateStats = (data: Remessa[]): RemessaStats => {
@@ -22,7 +22,7 @@ async function fetchRemessasData(
 	_payload?: undefined
 ): Promise<Remessa[]> {
 	try {
-		return await RemessaService.getAllRemessas();
+		return await getAllRemessas();
 	} catch (backendError) {
 		console.warn(
 			'Backend não disponível, usando dados mockados:',
@@ -38,10 +38,7 @@ async function fetchRemessasData(
 
 export function useRemessas() {
 	const [remessas, setRemessas] = useState<Remessa[]>([]);
-	const { action: fetchRemessas, isLoading } = useApiCall<
-		undefined,
-		Remessa[]
-	>(fetchRemessasData);
+	const { action: fetchRemessas, isLoading } = useApiCall(fetchRemessasData);
 
 	const stats = useMemo(() => calculateStats(remessas), [remessas]);
 
@@ -56,7 +53,8 @@ export function useRemessas() {
 
 	useEffect(() => {
 		loadRemessas();
-	}, [loadRemessas]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return {
 		remessas,

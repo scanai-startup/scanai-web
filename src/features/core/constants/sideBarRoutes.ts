@@ -14,7 +14,7 @@ const routes = [
 	},
 	{
 		name: 'Gestão de remessas',
-		url: '#',
+		url: '/app/dashboard/remessas',
 		icon: Truck,
 	},
 	{

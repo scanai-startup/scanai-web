@@ -78,12 +78,3 @@ export async function deleteRemessa(id: number): Promise<void> {
 		throw error;
 	}
 }
-
-export const RemessaService = {
-	getAllRemessas,
-	getValidRemessas,
-	getRemessaById,
-	createRemessa,
-	updateRemessa,
-	deleteRemessa,
-};

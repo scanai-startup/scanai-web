@@ -36,6 +36,7 @@ export async function getUserData(token: string) {
 
 	if (payload) {
 		return {
+			id: payload.id,
 			name: payload.sub,
 			role: payload.role,
 		};

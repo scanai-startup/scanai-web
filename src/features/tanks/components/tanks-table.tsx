@@ -16,7 +16,6 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { Barrel } from 'lucide-react';
-import { Button, Input, Label } from '@/components';
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -36,7 +35,7 @@ export function TanksTable<TData, TValue>({
 
 	return (
 		<>
-			<div className='flex items-end pb-4 gap-2'>
+			{/* <div className='flex items-end pb-4 gap-2'>
 				<div className='w-md'>
 					<Label htmlFor='depositNumber' className='mb-1.5'>
 						Pesquisa por depósito
@@ -57,7 +56,7 @@ export function TanksTable<TData, TValue>({
 					/>
 				</div>
 				<Button className='cursor-pointer'>Buscar</Button>
-			</div>
+			</div> */}
 			<div className='overflow-hidden rounded-md border'>
 				<Table>
 					<TableHeader>
@@ -65,7 +64,10 @@ export function TanksTable<TData, TValue>({
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => {
 									return (
-										<TableHead key={header.id}>
+										<TableHead
+											key={header.id}
+											className='text-center'
+										>
 											{header.isPlaceholder
 												? null
 												: flexRender(
@@ -89,7 +91,10 @@ export function TanksTable<TData, TValue>({
 									}
 								>
 									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
+										<TableCell
+											key={cell.id}
+											className='text-center'
+										>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()
@@ -104,7 +109,7 @@ export function TanksTable<TData, TValue>({
 									<div className='flex flex-col items-center justify-center my-12 gap-4'>
 										<Barrel
 											size={72}
-											className='text-red-400 bg-red-100 p-4 rounded-full'
+											className='text-scan-ai bg-red-100 p-4 rounded-full'
 										/>
 										<div>
 											<h4 className='text-lg font-semibold'>

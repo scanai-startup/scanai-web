@@ -30,8 +30,9 @@ import {
 } from '@/components/ui/sheet';
 import { Save, Truck, Plus, Edit } from 'lucide-react';
 import { toast } from 'sonner';
-import { RemessaService } from '@/features/remessa';
 import { Remessa } from '@/features/remessa/types';
+import { createRemessa, updateRemessa } from '../services/remessa-service';
+import { useUserStore } from '@/features/core/store/user';
 
 interface RemessaDetailsForm {
 	datachegada: string;
@@ -72,6 +73,7 @@ export function RemessaDetailsSidesheet({
 		numerolote: remessa?.numerolote || 0,
 		observacoes: '',
 	});
+	const { user } = useUserStore();
 
 	const handleInputChange = (
 		field: keyof RemessaDetailsForm,
@@ -89,7 +91,7 @@ export function RemessaDetailsSidesheet({
 
 		try {
 			if (mode === 'create') {
-				await RemessaService.createRemessa({
+				await createRemessa({
 					datachegada: formData.datachegada,
 					numerotalao: formData.numerotalao,
 					casta: formData.casta,
@@ -100,12 +102,12 @@ export function RemessaDetailsSidesheet({
 					so2: formData.so2,
 					numerolote: formData.numerolote,
 					valid: true,
-					fkfuncionario: 1,
+					fkfuncionario: user?.id as number,
 					fkmostro: null,
 				});
 				toast.success('Remessa criada com sucesso!');
 			} else if (remessa) {
-				await RemessaService.updateRemessa(remessa.id, {
+				await updateRemessa(remessa.id, {
 					datachegada: formData.datachegada,
 					numerotalao: formData.numerotalao,
 					casta: formData.casta,

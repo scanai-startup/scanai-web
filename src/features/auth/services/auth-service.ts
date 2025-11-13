@@ -32,6 +32,7 @@ export async function signIn(payload: SigninFormType) {
 		});
 
 		return {
+			id: decoded.id,
 			name: decoded.sub,
 			role: decoded.role,
 		};

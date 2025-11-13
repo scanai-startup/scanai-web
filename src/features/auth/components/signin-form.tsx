@@ -36,7 +36,11 @@ export function SignInForm({
 	async function handleSignin(values: SigninFormType) {
 		try {
 			const data = await action(values);
-			setUser({ name: data.name as string, role: data.role as Role });
+			setUser({
+				id: data.id as number,
+				name: data.name as string,
+				role: data.role as Role,
+			});
 
 			router.push('/app/dashboard');
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars

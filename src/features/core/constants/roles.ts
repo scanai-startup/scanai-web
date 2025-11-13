@@ -10,5 +10,5 @@ const roles = {
 export type Role = keyof typeof roles;
 
 export function fancyRoleName(identifier: keyof typeof roles) {
-	return roles[identifier]?.fancy || identifier;
+	return roles[identifier]?.fancy;
 }

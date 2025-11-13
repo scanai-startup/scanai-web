@@ -10,6 +10,7 @@ import {
 	QualityRateCard,
 	useRemessas,
 } from '@/features/remessa';
+import PageHeader from '@/features/core/components/page-header';
 
 export default function RemessasPage() {
 	const { remessas, stats, loading, refreshRemessas } = useRemessas();
@@ -28,17 +29,12 @@ export default function RemessasPage() {
 	}
 
 	return (
-		<div className='flex-1 space-y-4 p-8 pt-6'>
+		<div>
 			<div className='flex items-center justify-between space-y-2'>
-				<div>
-					<h2 className='text-3xl font-bold tracking-tight'>
-						Gestão de Remessas
-					</h2>
-					<p className='text-muted-foreground'>
-						Acompanhe o recebimento e controle de qualidade das
-						remessas.
-					</p>
-				</div>
+				<PageHeader
+					title='gestão de remessas'
+					description='acompanhe o recebimento e controle de qualidade das remessas.'
+				/>
 				<div className='flex items-center space-x-2'>
 					<Button>Exportar</Button>
 				</div>

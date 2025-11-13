@@ -1,25 +1,30 @@
-import { useState, useCallback } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react';
 
-export default function useApiCall<TPayload, TResponse>(
-	fn: (payload: TPayload) => Promise<TResponse>
+export default function useApiCall<F extends (...args: any[]) => Promise<any>>(
+	fn: F
 ) {
+	type Args = Parameters<F>;
+	type TResponse = Awaited<ReturnType<F>>;
+
 	const [isLoading, setIsLoading] = useState(false);
+	const [data, setData] = useState<TResponse | null>(null);
 
-	const action = useCallback(
-		async (payload: TPayload) => {
-			try {
-				setIsLoading(true);
-				const data = await fn(payload);
+	async function action(...args: Args): Promise<TResponse> {
+		setIsLoading(true);
+		try {
+			// forward args exactly as the original function expects
+			const res = await fn(...(args as any));
+			setData(res);
+			return res as TResponse;
+		} finally {
+			setIsLoading(false);
+		}
+	}
 
-				return data;
-			} catch (error) {
-				throw error;
-			} finally {
-				setIsLoading(false);
-			}
-		},
-		[fn]
-	);
-
-	return { action, isLoading };
+	return {
+		action: action as (...args: Args) => Promise<TResponse>,
+		isLoading,
+		data,
+	};
 }

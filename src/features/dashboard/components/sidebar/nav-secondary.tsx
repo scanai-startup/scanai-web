@@ -9,22 +9,16 @@ import {
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { generalRoutes } from '@/features/core/constants/sideBarRoutes';
 
 export function NavSecondary({
-	items,
 	...props
-}: {
-	items: {
-		title: string;
-		url: string;
-		icon: LucideIcon;
-	}[];
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+}: React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
 	return (
 		<SidebarGroup {...props}>
 			<SidebarGroupContent>
 				<SidebarMenu>
-					{items.map((item) => (
+					{generalRoutes.map((item) => (
 						<SidebarMenuItem key={item.title}>
 							<SidebarMenuButton asChild size='sm'>
 								<Link href={item.url}>

@@ -1,16 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-	Barrel,
-	Command,
-	LifeBuoy,
-	PieChart,
-	Send,
-	SquareTerminal,
-	Truck,
-	Wine,
-} from 'lucide-react';
+import { Command } from 'lucide-react';
 
 import {
 	Sidebar,
@@ -21,69 +12,10 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { NavProjects } from './nav-projects';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
+import { NavMainRoutes } from './nav-main-routes';
 import { LogoutButton } from '@/features/auth';
-
-const data = {
-	navMain: [
-		{
-			title: 'Playground',
-			url: '#',
-			icon: SquareTerminal,
-			isActive: true,
-			items: [
-				{
-					title: 'History',
-					url: '#',
-				},
-				{
-					title: 'Starred',
-					url: '#',
-				},
-				{
-					title: 'Settings',
-					url: '#',
-				},
-			],
-		},
-	],
-	navSecondary: [
-		{
-			title: 'Support',
-			url: '#',
-			icon: LifeBuoy,
-		},
-		{
-			title: 'Feedback',
-			url: '#',
-			icon: Send,
-		},
-	],
-	projects: [
-		{
-			name: 'Visão Geral',
-			url: '/app/dashboard',
-			icon: PieChart,
-		},
-		{
-			name: 'Gestão de remessas',
-			url: '/app/dashboard/remessas',
-			icon: Truck,
-		},
-		{
-			name: 'Gestão de tanques',
-			url: '/app/dashboard/tanks',
-			icon: Barrel,
-		},
-		{
-			name: 'Rastreabilidade',
-			url: '/app/dashboard/traceability',
-			icon: Wine,
-		},
-	],
-};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
@@ -111,8 +43,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent>
 				{/* <NavMain items={data.navMain} /> */}
-				<NavProjects projects={data.projects} />
-				<NavSecondary items={data.navSecondary} className='mt-auto' />
+				<NavMainRoutes />
+				<NavSecondary className='mt-auto' />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />

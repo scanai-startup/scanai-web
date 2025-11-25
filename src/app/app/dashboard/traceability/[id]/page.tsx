@@ -45,6 +45,7 @@ interface ProcessStage {
 	endDate?: string;
 	duration?: string;
 	responsible?: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	details: Record<string, any>;
 }
 
@@ -206,9 +207,6 @@ const mockTraceabilityData: TraceabilityData = {
 };
 
 function WineTraceability() {
-	const [selectedStage, setSelectedStage] =
-		React.useState<ProcessStage | null>(null);
-	const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 	const data = mockTraceabilityData;
 
 	function getStatusColor(status: ProcessStage['status']) {
@@ -245,7 +243,6 @@ function WineTraceability() {
 
 	function ProcessFlow({
 		stages,
-		currentStage,
 	}: {
 		stages: ProcessStage[];
 		currentStage: string;
@@ -265,8 +262,8 @@ function WineTraceability() {
 							stage.status === 'completed'
 								? 'bg-green-100 border-green-500 text-green-700 hover:bg-green-200'
 								: stage.status === 'in-progress'
-									? 'bg-blue-100 border-blue-500 text-blue-700 hover:bg-blue-200'
-									: 'bg-gray-100 border-gray-300 text-gray-500 hover:bg-gray-200'
+								? 'bg-blue-100 border-blue-500 text-blue-700 hover:bg-blue-200'
+								: 'bg-gray-100 border-gray-300 text-gray-500 hover:bg-gray-200'
 						}
                       `}
 										>
@@ -302,16 +299,18 @@ function WineTraceability() {
 									</div>
 									<Badge
 										variant='outline'
-										className={`mt-1 text-xs ${getStatusColor(stage.status)}`}
+										className={`mt-1 text-xs ${getStatusColor(
+											stage.status
+										)}`}
 									>
 										{getStatusIcon(stage.status)}
 										{stage.status === 'completed'
 											? 'Concluído'
 											: stage.status === 'in-progress'
-												? 'Em Andamento'
-												: stage.status === 'delayed'
-													? 'Atrasado'
-													: 'Pendente'}
+											? 'Em Andamento'
+											: stage.status === 'delayed'
+											? 'Atrasado'
+											: 'Pendente'}
 									</Badge>
 								</div>
 							</div>
@@ -831,10 +830,10 @@ function WineTraceability() {
 						{stage.status === 'completed'
 							? 'Concluído'
 							: stage.status === 'in-progress'
-								? 'Em Andamento'
-								: stage.status === 'delayed'
-									? 'Atrasado'
-									: 'Pendente'}
+							? 'Em Andamento'
+							: stage.status === 'delayed'
+							? 'Atrasado'
+							: 'Pendente'}
 					</Badge>
 					{stage.responsible && (
 						<div className='flex items-center gap-2 text-sm'>
@@ -870,10 +869,10 @@ function WineTraceability() {
 							{stage.status === 'completed'
 								? 'Concluído'
 								: stage.status === 'in-progress'
-									? 'Em Andamento'
-									: stage.status === 'delayed'
-										? 'Atrasado'
-										: 'Pendente'}
+								? 'Em Andamento'
+								: stage.status === 'delayed'
+								? 'Atrasado'
+								: 'Pendente'}
 						</Badge>
 					</div>
 				</CardHeader>
@@ -1163,25 +1162,6 @@ function WineTraceability() {
 			</Tabs>
 		</div>
 	);
-}
-
-interface Tank {
-	id: number;
-	status: 'em-uso' | 'livre' | 'manutencao';
-	content?: string;
-	volume?: number;
-	capacity: number;
-	temperature?: number;
-	pressure?: number;
-	ph?: number;
-	grapeType?: string;
-	lastCleaning?: string;
-	lastFilling?: string;
-	history: Array<{
-		date: string;
-		action: string;
-		details?: string;
-	}>;
 }
 
 export default WineTraceability;

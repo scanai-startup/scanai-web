@@ -14,6 +14,7 @@ export function LogoutButton() {
 			await signOut();
 			toast.success('Logout realizado com sucesso!');
 			router.push('/');
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
 			toast.error('Erro ao realizar logout');
 		}

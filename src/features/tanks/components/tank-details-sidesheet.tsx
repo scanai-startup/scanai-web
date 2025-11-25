@@ -10,8 +10,6 @@ import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
-	Separator,
-	Skeleton,
 } from '@/components';
 import { useEffect, useState } from 'react';
 import { TankWithDetails } from '../types/tankWithDetails';
@@ -52,6 +50,7 @@ export default function TankDetailsSidesheet({
 		if (isSheetOpen) {
 			fetchTankData();
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSheetOpen]);
 
 	return (

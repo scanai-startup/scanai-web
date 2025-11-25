@@ -85,23 +85,6 @@ const mockNotasFiscais: NotaFiscal[] = [
 	},
 ];
 
-const categorias = {
-	'Vinhos Tintos': [
-		'Cabernet Sauvignon',
-		'Syrah',
-		'Alicante Bouschet',
-		'Touriga Nacional',
-		'Aragonês',
-		'Tempranillo',
-	],
-	'Vinhos Brancos': [
-		'Chardonnay',
-		'Sauvignon Blanc',
-		'Riesling',
-		'Pinot Grigio',
-	],
-};
-
 function getStatusColor(status: NotaFiscal['status']) {
 	switch (status) {
 		case 'Em Produção':

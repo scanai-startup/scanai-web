@@ -1,12 +1,6 @@
 'use client';
 
-import {
-	BadgeCheck,
-	Bell,
-	ChevronsUpDown,
-	CreditCard,
-	LogOut,
-} from 'lucide-react';
+import { BadgeCheck, Bell, ChevronsUpDown, CreditCard } from 'lucide-react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
@@ -70,7 +64,7 @@ export function NavUser() {
 							<div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
 								<Avatar className='h-8 w-8 rounded-lg'>
 									{/* <AvatarImage
-										src={user.avatar}
+										src={user.avatar}/dashboard/components/sidebar/nav-user.tsx
 										alt={user.name}
 									/> */}
 									<AvatarFallback className='rounded-lg'>

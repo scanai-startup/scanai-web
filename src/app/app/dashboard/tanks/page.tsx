@@ -29,11 +29,11 @@ export default function TanksManagementPage() {
 
 	useEffect(() => {
 		fetchTanks();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<div>
-			{/* <DynamicBreadcrumb /> */}
 			<PageHeader
 				title='gestão de tanques'
 				description='gerencie os tanques da sua vinícola'

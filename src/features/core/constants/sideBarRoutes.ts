@@ -1,12 +1,7 @@
-import { PieChart, Barrel, Truck, Wine, LifeBuoy, Send } from 'lucide-react';
+import { Barrel, Truck, LifeBuoy, Send } from 'lucide-react';
 import { Role } from './roles';
 
 const routes = [
-	{
-		name: 'Visão Geral',
-		url: '/app/dashboard',
-		icon: PieChart,
-	},
 	{
 		name: 'Gestão de tanques',
 		url: '/app/dashboard/tanks',
@@ -16,11 +11,6 @@ const routes = [
 		name: 'Gestão de remessas',
 		url: '/app/dashboard/remessas',
 		icon: Truck,
-	},
-	{
-		name: 'Rastreabilidade',
-		url: '/app/dashboard/traceability',
-		icon: Wine,
 	},
 ];
 

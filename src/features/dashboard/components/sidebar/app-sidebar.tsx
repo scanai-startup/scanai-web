@@ -1,20 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-	BookOpen,
-	Bot,
-	Command,
-	Frame,
-	LifeBuoy,
-	Map,
-	PieChart,
-	Send,
-	Settings2,
-	SquareTerminal,
-	Truck,
-	Wine,
-} from 'lucide-react';
+import { Command } from 'lucide-react';
 
 import {
 	Sidebar,
@@ -25,69 +12,10 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { NavMain } from './nav-main';
-import { NavProjects } from './nav-projects';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
-
-const data = {
-	user: {
-		name: 'Cauã Tavares',
-		email: 'tavarescauac@gmail.com',
-		avatar: '/avatars/shadcn.jpg',
-	},
-	navMain: [
-		{
-			title: 'Playground',
-			url: '#',
-			icon: SquareTerminal,
-			isActive: true,
-			items: [
-				{
-					title: 'History',
-					url: '#',
-				},
-				{
-					title: 'Starred',
-					url: '#',
-				},
-				{
-					title: 'Settings',
-					url: '#',
-				},
-			],
-		},
-	],
-	navSecondary: [
-		{
-			title: 'Support',
-			url: '#',
-			icon: LifeBuoy,
-		},
-		{
-			title: 'Feedback',
-			url: '#',
-			icon: Send,
-		},
-	],
-	projects: [
-		{
-			name: 'Visão Geral',
-			url: '/dashboard',
-			icon: PieChart,
-		},
-		{
-			name: 'Gestão de remessas',
-			url: '#',
-			icon: Truck,
-		},
-		{
-			name: 'Rastreabilidade',
-			url: '/dashboard/traceability',
-			icon: Wine,
-		},
-	],
-};
+import { NavMainRoutes } from './nav-main-routes';
+import { LogoutButton } from '@/features/auth';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
@@ -115,11 +43,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent>
 				{/* <NavMain items={data.navMain} /> */}
-				<NavProjects projects={data.projects} />
-				<NavSecondary items={data.navSecondary} className='mt-auto' />
+				<NavMainRoutes />
+				<NavSecondary className='mt-auto' />
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={data.user} />
+				<NavUser />
+				<div className='px-2 py-1'>
+					<LogoutButton />
+				</div>
 			</SidebarFooter>
 		</Sidebar>
 	);

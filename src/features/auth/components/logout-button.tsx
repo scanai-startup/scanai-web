@@ -13,7 +13,7 @@ export function LogoutButton() {
 		try {
 			await signOut();
 			toast.success('Logout realizado com sucesso!');
-			router.push('/signin');
+			router.push('/');
 		} catch (error) {
 			toast.error('Erro ao realizar logout');
 		}

@@ -44,7 +44,6 @@ export default function RemessasPage() {
 				<div className='flex items-center justify-between'>
 					<TabsList>
 						<TabsTrigger value='overview'>Visão Geral</TabsTrigger>
-						<TabsTrigger value='analytics'>Análises</TabsTrigger>
 					</TabsList>
 					<RemessaDetailsSidesheet onRemessaSaved={refreshRemessas} />
 				</div>

@@ -26,9 +26,8 @@ import {
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
-	SheetTrigger,
 } from '@/components/ui/sheet';
-import { Save, Truck, Plus, Edit } from 'lucide-react';
+import { Save, Truck } from 'lucide-react';
 import { toast } from 'sonner';
 import { Remessa } from '@/features/remessa/types';
 import { createRemessa, updateRemessa } from '../services/remessa-service';
@@ -132,21 +131,21 @@ export function RemessaDetailsSidesheet({
 		}
 	};
 
-	const triggerButton =
-		mode === 'create' ? (
-			<Button size='sm' className='flex items-center space-x-2'>
-				<Plus className='h-4 w-4' />
-				<span>Nova remessa</span>
-			</Button>
-		) : (
-			<Button size='icon' variant='ghost' className='h-8 w-8'>
-				<Edit className='h-4 w-4' />
-			</Button>
-		);
+	// const triggerButton =
+	// 	mode === 'create' ? (
+	// 		<Button size='sm' className='flex items-center space-x-2'>
+	// 			<Plus className='h-4 w-4' />
+	// 			<span>Nova remessa</span>
+	// 		</Button>
+	// 	) : (
+	// 		<Button size='icon' variant='ghost' className='h-8 w-8'>
+	// 			<Edit className='h-4 w-4' />
+	// 		</Button>
+	// 	);
 
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
-			<SheetTrigger asChild>{triggerButton}</SheetTrigger>
+			{/* <SheetTrigger asChild>{triggerButton}</SheetTrigger> */}
 			<SheetContent className='w-[600px] sm:max-w-[600px]'>
 				<SheetHeader>
 					<SheetTitle className='flex items-center space-x-2'>

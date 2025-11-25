@@ -42,7 +42,7 @@ export function SignInForm({
 				role: data.role as Role,
 			});
 
-			router.push('/app/dashboard');
+			router.push('/app/dashboard/tanks');
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
 			toast.error(

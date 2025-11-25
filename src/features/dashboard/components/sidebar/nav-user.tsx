@@ -102,11 +102,6 @@ export function NavUser() {
 								Notificações
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>
-							<LogOut />
-							Sair
-						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</SidebarMenuItem>
